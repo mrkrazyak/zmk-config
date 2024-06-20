@@ -3,15 +3,36 @@
 #include <dt-bindings/zmk/keys.h>
 
 / {
+    macros {
+        caps_macro: caps_macro {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp CAPS>, <&macro_tap_time 30>;
+
+            label = "CAPS_MACRO";
+        };
+    };
+
+    behaviors {
+        shift_caps: shift_caps {
+            compatible = "zmk,behavior-hold-tap";
+            label = "SHIFT_CAPS";
+            bindings = <&kp>, <&caps_macro>;
+
+            #binding-cells = <2>;
+            tapping-term-ms = <200>;
+        };
+    };
+
     keymap {
         compatible = "zmk,keymap";
 
         default_layer {
             bindings = <
-&kp TAB         &kp Q  &kp W  &kp E      &kp R      &kp T    &kp Y  &kp U    &kp I      &kp O    &kp P     &kp BSPC
-&kp LALT        &kp A  &kp S  &kp D      &kp F      &kp G    &kp H  &kp J    &kp K      &kp L    &kp SEMI  &kp SQT
-&mt LSHFT CAPS  &kp Z  &kp X  &kp C      &kp V      &kp B    &kp N  &kp M    &kp COMMA  &kp DOT  &kp FSLH  &kp RGUI
-                              &kp LCTRL  &kp SPACE  &mo 3    &mo 4  &kp RET  &kp RGUI
+&kp TAB              &kp Q  &kp W  &kp E      &kp R      &kp T    &kp Y  &kp U    &kp I      &kp O    &kp P     &kp BSPC
+&kp LALT             &kp A  &kp S  &kp D      &kp F      &kp G    &kp H  &kp J    &kp K      &kp L    &kp SEMI  &kp SQT
+&shift_caps LSHFT 0  &kp Z  &kp X  &kp C      &kp V      &kp B    &kp N  &kp M    &kp COMMA  &kp DOT  &kp FSLH  &kp RGUI
+                                   &kp LCTRL  &kp SPACE  &mo 3    &mo 4  &kp RET  &kp RGUI
             >;
         };
 
@@ -38,7 +59,7 @@
 &kp ESC       &kp EXCL  &kp AT  &kp HASH   &kp DLLR   &kp PRCNT    &kp CARET  &kp AMPS   &kp ASTRK  &kp LPAR  &kp RPAR  &kp DEL
 &kp LEFT_ALT  &kp N1    &kp N2  &kp N3     &kp N4     &kp N5       &kp MINUS  &kp EQUAL  &kp GRAVE  &kp LBRC  &kp RBRC  &kp PIPE
 &kp CAPS      &kp N6    &kp N7  &kp N8     &kp N9     &kp N0       &kp UNDER  &kp PLUS   &kp TILDE  &kp LBKT  &kp RBKT  &kp BSLH
-                                  &kp LCTRL  &kp SPACE  &trans       &trans     &kp RET    &kp RGUI
+                                &kp LCTRL  &kp SPACE  &trans       &trans     &kp RET    &kp RGUI
             >;
         };
 
